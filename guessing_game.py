@@ -13,6 +13,7 @@ from sys import exit
 
 player_guesses = []
 game_attempts = 0
+best_attempt = 0
 
 def show_welcome():
     print("""
@@ -32,6 +33,10 @@ def check_guess(correct_number):
     while player_guess != correct_number:
         try:
             player_guess = int(input("I'm thinking of a number between 1 and 100...\t"))
+
+            if player_guess > 100 or player_guess < 0:
+                print("Number must be between 1 and 100 (inclusive)")
+                continue
             if player_guess > correct_number:
                 
                 #     a. If the guess is greater than the solution, display to the player "It's lower".
@@ -47,9 +52,9 @@ def check_guess(correct_number):
             player_guesses.append(player_guess)
             guess_count += 1
         except ValueError:
-            print("Please enter a whole number...")
-        except Exception:
-            print("Please enter a whole number")
+            print("Please enter a whole number between 1 and 100 (inclusive)")
+        except Exception as ex:
+            print(f"Something went wrong: {ex}")
 
     return guess_count
 
@@ -58,12 +63,16 @@ def show_stats(guess_count):
     #     a. How many attempts it took them to get the correct number in this game
     print(f"Attempt #{game_attempts}")
     print(f"It took you {guess_count} guesses to get the correct number.")
+    print(f"Your best attempt was {best_attempt} guesses")
     #     b. The mean of the saved attempts list
     print(f"The average of your guesses is {round(mean(player_guesses))}.")
 #     c. The median of the saved attempts list
     print(f"The median of your guesses is {median(player_guesses)}")
 #     d. The mode of the saved attempts list
-    print(f"The mode of your guesses is {multimode(player_guesses)}")
+    if len(multimode(player_guesses)) > 1:
+        print(f"There is no mode for you guesses")
+    else:
+        print(f"The mode of your guesses is {multimode(player_guesses)}")
     
 # Create the start_game function.
 def start_game():
@@ -81,8 +90,13 @@ def start_game():
 while True:
     game_attempts += 1
     guess_count = start_game() 
-    print(guess_count)   
+    if game_attempts == 1:
+        best_attempt = guess_count
+    elif guess_count < best_attempt:
+        best_attempt = guess_count
+
     show_stats(guess_count)
+
     #   6. Prompt the player to play again
     #     a. If they decide to play again, start the game loop over.
     #     b. If they decide to quit, show them a goodbye message.
