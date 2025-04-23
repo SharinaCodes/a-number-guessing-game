@@ -6,5 +6,16 @@ In this project, you will build a console game that will let you exercise the sk
 #### Features
 * Generate a random number
 * Looping
+* Control Flow
 * Handling Exceptions
-* Basic Descriptive Statistics
+* Basic Descriptive Statistics (mean, median, and mode)
+
+#### How to Run
+1. Open a terminal.
+2. Navigate to the directory containing the script.
+3. Run the script with:
+```bash
+    python guessing_game.py
+```
+
+Follow the on-screen prompts to play!
