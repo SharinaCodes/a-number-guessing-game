@@ -34,7 +34,7 @@ def check_guess(correct_number):
         try:
             player_guess = int(input("I'm thinking of a number between 1 and 100...\t"))
 
-            if player_guess > 100 or player_guess < 0:
+            if player_guess > 100 or player_guess < 1:
                 print("That number is invalid. Please try again.")
                 continue
             if player_guess > correct_number:
@@ -73,7 +73,7 @@ def show_stats(guess_count):
     print(f"The median of your guesses is {median(guess_totals)}")
 #     d. The mode of the saved attempts list
     if len(multimode(guess_totals)) > 1:
-        print(f"There is no mode for you guesses")
+        print("There is no mode for your guesses.")
     else:
         print(f"The mode of your guesses is {multimode(guess_totals)}")
     
